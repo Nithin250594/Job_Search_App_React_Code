@@ -1,4 +1,3 @@
-import {Component} from 'react'
 
 import {Route, Switch, Redirect} from 'react-router-dom'
 
@@ -52,9 +51,7 @@ const salaryRangesList = [
 ]
 
 // Replace your code here
-class App extends Component {
-  render() {
-    return (
+const App=()=> (
       <Switch>
         <Route exact path="/login" component={Login} />
         <ProtectedRoute exact path="/" component={Home} />
@@ -72,8 +69,7 @@ class App extends Component {
         <Route exact path="/not-found" component={NotFound} />
         <Redirect to="not-found" />
       </Switch>
-    )
-  }
-}
+)
+
 
 export default App
