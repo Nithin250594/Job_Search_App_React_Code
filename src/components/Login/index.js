@@ -38,9 +38,8 @@ class Login extends Component {
     }
     const response = await fetch(loginApi, options)
     const data = await response.json()
-    console.log(data)
 
-    if (response.ok === true) {
+    if (response.ok) {
       this.onSubmitSuccessfully(data.jwt_token)
     } else {
       this.setState({invalidLogin: true, errorText: data.error_msg})
@@ -50,6 +49,7 @@ class Login extends Component {
   render() {
     const {username, password, invalidLogin, errorText} = this.state
     const jwtToken = Cookies.get('jwt_token')
+    console.log(jwtToken)
 
     if (jwtToken !== undefined) {
       return <Redirect to="/" />

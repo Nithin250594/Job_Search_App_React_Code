@@ -1,6 +1,4 @@
-
 import {Route, Switch, Redirect} from 'react-router-dom'
-
 import Login from './components/Login'
 import Home from './components/Home'
 import NotFound from './components/NotFound'
@@ -50,26 +48,49 @@ const salaryRangesList = [
   },
 ]
 
-// Replace your code here
-const App=()=> (
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <ProtectedRoute exact path="/" component={Home} />
-        <ProtectedRoute
-          exact
-          path="/jobs"
-          render={() => (
-            <Jobs
-              employmentTypesList={employmentTypesList}
-              salaryRangesList={salaryRangesList}
-            />
-          )}
-        />
-        <ProtectedRoute exact path="/jobs/:id" component={JobItemDetails} />
-        <Route exact path="/not-found" component={NotFound} />
-        <Redirect to="not-found" />
-      </Switch>
-)
+const locationList = [
+  {
+    locationId: 'Hyderabad',
+    label: 'Hyderabad',
+  },
+  {
+    locationId: 'Bangalore',
+    label: 'Bangalore',
+  },
+  {
+    locationId: 'Chennai',
+    label: 'Chennai',
+  },
+  {
+    locationId: 'Delhi',
+    label: 'Delhi',
+  },
+  {
+    locationId: 'Mumbai',
+    label: 'Mumbai',
+  },
+]
 
+// Replace your code here
+const App = () => (
+  <Switch>
+    <Route exact path="/login" component={Login} />
+    <ProtectedRoute exact path="/" component={Home} />
+    <ProtectedRoute
+      exact
+      path="/jobs"
+      render={() => (
+        <Jobs
+          employmentTypesList={employmentTypesList}
+          salaryRangesList={salaryRangesList}
+          locationList={locationList}
+        />
+      )}
+    />
+    <ProtectedRoute exact path="/jobs/:id" component={JobItemDetails} />
+    <Route exact path="/not-found" component={NotFound} />
+    <Redirect to="not-found" />
+  </Switch>
+)
 
 export default App

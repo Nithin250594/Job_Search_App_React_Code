@@ -8,6 +8,8 @@
   padding-right: 50px;
   padding-top: 15px;
   padding-bottom: 15px;
+  position: sticky;
+  top: 0;
 }
 
 .header-logo {
