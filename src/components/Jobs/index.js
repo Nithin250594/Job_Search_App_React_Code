@@ -64,7 +64,7 @@ class Jobs extends Component {
       this.setState(
         prevState => ({
           activeLocationList: prevState.activeLocationList.filter(
-            eachLocation => eachLocation.locationId !== event.target.id,
+            eachLocationId => eachLocationId !== event.target.id,
           ),
         }),
         this.getJobsListRender,
@@ -100,7 +100,7 @@ class Jobs extends Component {
     const stringOfActiveLocationList = activeLocationList.join()
 
     const jwtToken = Cookies.get('jwt_token')
-    const jobsApi = `https://apis.ccbp.in/jobs?employment_type=${stringOfActiveEmploymentTypeList}&minimum_package=${activeSalaryId}&job_location=${stringOfActiveLocationList}&search=${searchInput}`
+    const jobsApi = `https://apis.ccbp.in/jobs?employment_type=${stringOfActiveEmploymentTypeList}&minimum_package=${activeSalaryId}&location=${stringOfActiveLocationList}&search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
