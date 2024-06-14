@@ -50,23 +50,23 @@ const salaryRangesList = [
 
 const locationList = [
   {
-    locationId: 'Hyderabad',
+    locationId: 'HYDERABAD',
     label: 'Hyderabad',
   },
   {
-    locationId: 'Bangalore',
+    locationId: 'BANGALORE',
     label: 'Bangalore',
   },
   {
-    locationId: 'Chennai',
+    locationId: 'CHENNAI',
     label: 'Chennai',
   },
   {
-    locationId: 'Delhi',
+    locationId: 'DELHI',
     label: 'Delhi',
   },
   {
-    locationId: 'Mumbai',
+    locationId: 'MUMBAI',
     label: 'Mumbai',
   },
 ]

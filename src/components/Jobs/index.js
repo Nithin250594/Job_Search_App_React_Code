@@ -57,14 +57,14 @@ class Jobs extends Component {
   }
 
   onClickLocationCheckbox = event => {
-    const {activeLocationList} = this.props
+    const {activeLocationList} = this.state
 
-    const checkLLocationId = activeLocationList.includes(event.target.id)
+    const checkLLocationId = activeLocationList.includes(event.target.value)
     if (checkLLocationId) {
       this.setState(
         prevState => ({
           activeLocationList: prevState.activeLocationList.filter(
-            eachLocationId => eachLocationId !== event.target.id,
+            eachLocationId => eachLocationId !== event.target.value,
           ),
         }),
         this.getJobsListRender,
@@ -74,7 +74,7 @@ class Jobs extends Component {
         prevState => ({
           activeLocationList: [
             ...prevState.activeLocationList,
-            event.target.id,
+            event.target.value,
           ],
         }),
         this.getJobsListRender,
@@ -89,6 +89,7 @@ class Jobs extends Component {
 
   getJobsListRender = async () => {
     this.setState({jobsFetchStatus: resultView.in_progress})
+    let reModifiedJobsData = null
 
     const {
       activeEmploymentTypeList,
@@ -97,10 +98,9 @@ class Jobs extends Component {
       searchInput,
     } = this.state
     const stringOfActiveEmploymentTypeList = activeEmploymentTypeList.join()
-    const stringOfActiveLocationList = activeLocationList.join()
 
     const jwtToken = Cookies.get('jwt_token')
-    const jobsApi = `https://apis.ccbp.in/jobs?employment_type=${stringOfActiveEmploymentTypeList}&minimum_package=${activeSalaryId}&location=${stringOfActiveLocationList}&search=${searchInput}`
+    const jobsApi = `https://apis.ccbp.in/jobs?employment_type=${stringOfActiveEmploymentTypeList}&minimum_package=${activeSalaryId}&search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -124,9 +124,18 @@ class Jobs extends Component {
           rating: eachJobItem.rating,
           title: eachJobItem.title,
         }))
+        if (activeLocationList.length !== 0) {
+          reModifiedJobsData = modifiedJobsData.filter(eachJobItem =>
+            activeLocationList.some(
+              location => location === eachJobItem.location,
+            ),
+          )
+        } else {
+          reModifiedJobsData = modifiedJobsData
+        }
 
         this.setState({
-          jobsData: modifiedJobsData,
+          jobsData: reModifiedJobsData,
           jobsFetchStatus: resultView.success,
         })
       } else {
@@ -146,7 +155,7 @@ class Jobs extends Component {
     return (
       <ul className="jobs-unordered-list">
         {jobsData.map(eachJob => (
-          <EachJob eachJob={eachJob} />
+          <EachJob key={eachJob.id} eachJob={eachJob} />
         ))}
       </ul>
     )
@@ -221,6 +230,7 @@ class Jobs extends Component {
         <input
           type="checkbox"
           id={eachLocation.locationId}
+          value={eachLocation.label}
           className="input-check-box"
           onClick={this.onClickLocationCheckbox}
         />
